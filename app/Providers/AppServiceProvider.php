@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Services\UserService;
+use Illuminate\Support\ServiceProvider;
+use App\Repositories\V1\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
         	$server = new \SoapServer(null, [
 				'uri' => url('/'),
         	]);
-        	return new UserService ($server);
+        	$repo = new UserRepository();
+        	return new UserService ($server, $repo);
         });
     }
 }
