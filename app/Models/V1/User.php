@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\V1;
 
 use Book;
 use Illuminate\Auth\Authenticatable;
