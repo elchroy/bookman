@@ -7,9 +7,10 @@ use RepositoryInterface;
 
 class UserRepository {
 
-	public function createUser (string $email) {
+	public function createUser (string $email, string $token) {
 		return User::create([
 			'email' => $email,
+			'token' => $token
 		]);
 	}
 

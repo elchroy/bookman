@@ -4,13 +4,13 @@ namespace App\Services;
 
 use SoapServer;
 use App\Models\V1\User;
+use App\Services\MainService;
 use App\Repositories\V1\UserRepository;
 
-class UserService
-{
+class UserService extends MainService {
 	const SUBSCRIPTION_SUCCESSFUL = "Subscription successful. Ensure to copy and store the generated token.";
 	const UPDATE_PROFILE_SUCCESSFUL = "Profile updated successful. Ensure to copy and store the generated token.";
-	
+
 	protected $repo;
 	protected $server;
 
@@ -25,9 +25,9 @@ class UserService
 	}
 
 	public function Subscribe (string $email) {
-		if ($user = $this->repo->createUser($email)) {
-			$hash = $this->generateHash($email);
-			return $this->genEmailTokenResponse($user, $hash, self::SUBSCRIPTION_SUCCESSFUL);
+		$token = $this->generateHash($email);
+		if ($user = $this->repo->createUser($email, $token)) {
+			return $this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL);
 		}
 	}
 
@@ -48,15 +48,11 @@ class UserService
         return $this->generateHash($user->email) == $token;
     }
 
-    public function genEmailTokenResponse (User $user, string $hash, string $message) {
+    public function genEmailTokenResponse (User $user, string $token, string $message) {
 		return [
 			"email" => $user->email,
-			"token" => $hash,
+			"token" => $token,
 			"message" => $message
 		];
     }
-
-	private function generateHash ($data) {
-		return hash('sha256', $data . env("SECRET_KEY"));
-	}
 }
