@@ -23,4 +23,8 @@ class UserRepository {
 			'email' => $newEmail
 		]);
 	}
+
+	public function findUserByToken (string $token) {
+		return User::where('token', $token)->first();
+	}
 }
