@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use User;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
@@ -14,4 +15,12 @@ class Book extends Model
     protected $fillable = [
     	'title'
 	];
+
+	/**
+	 * Association with User's model
+	 * Many books belong to one user
+	 */
+	public function user () {
+		return $this->belongsTo(User::class);
+	}
 }
