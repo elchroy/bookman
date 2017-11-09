@@ -2,7 +2,7 @@
 
 namespace App\Models\V1;
 
-use Book;
+use App\Models\V1\Book;
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;

@@ -2,7 +2,7 @@
 
 namespace App\Models\V1;
 
-use User;
+use App\Models\V1\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
