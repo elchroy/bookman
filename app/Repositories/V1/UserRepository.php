@@ -12,4 +12,14 @@ class UserRepository {
 			'email' => $email,
 		]);
 	}
+
+	public function findUserByEmail (string $email) {
+		return User::where('email', $email)->first();
+	}
+
+	public function updateUser(User $user, string $newEmail) {
+		return $user->update([
+			'email' => $newEmail
+		]);
+	}
 }
