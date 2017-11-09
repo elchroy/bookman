@@ -20,15 +20,15 @@ class AppServiceProvider extends ServiceProvider
         $server = new \SoapServer(null, [
             'uri' => url('/'),
         ]);
+        $userRepo = new UserRepository();
         
-        $this->app->singleton(UserService::class, function () use ($server) {
-            $repo = new UserRepository();
-            return new UserService ($server, $repo);
+        $this->app->singleton(UserService::class, function () use ($server, $userRepo) {
+            return new UserService ($server, $userRepo);
         });
 
-        $this->app->singleton(BookService::class, function () use ($server) {
+        $this->app->singleton(BookService::class, function () use ($server, $userRepo) {
             $repo = new BookRepository();
-            return new BookService ($server, $repo);
+            return new BookService ($server, $userRepo, $repo);
         });
     }
 }
