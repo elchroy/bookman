@@ -15,5 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post("/UserService", "API\V1\UsersController@handle");
-$router->post("/BookService", "API\V1\BooksController@handle");
+$router->group(["prefix" => "/api/v1"], function () {
+	$router->post("/UserService", "API\V1\UsersController@handle");
+	$router->post("/BookService", "API\V1\BooksController@handle");
+});
