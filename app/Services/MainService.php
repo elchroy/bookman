@@ -15,6 +15,10 @@ class MainService {
 		$this->bookRepo = $bookRepo;
 	}
 
+	public function handle () {
+		$this->server->handle();
+	}
+
 	public function generateHash ($data) {
 		return hash('sha256', $data . env("SECRET_KEY"));
 	}

@@ -17,10 +17,13 @@ class UserRepository {
 		return User::where('email', $email)->first();
 	}
 
-	public function updateUser(User $user, string $newEmail) {
-		return $user->update([
+	public function updateUser(User $user, string $newEmail, string $token) {
+		$user->update([
 			'email' => $newEmail
 		]);
+		$user->token = $token;
+		$user->save();
+		return $user;
 	}
 
 	public function findUserByToken (string $token) {

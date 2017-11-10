@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
     	$user = factory(User::class)->create([
     		'email' => "test-account@email.com",
-    		'token' => "___TEST_TOKEN___"
+    		'token' => "2ba135fbbd41ea0ae84e8c6ef122793106adfa25ae10a4879bbaeb8a238bfd8f"
     	]);
 
         $user->books()->create([

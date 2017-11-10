@@ -10,6 +10,8 @@ use App\Repositories\V1\UserRepository;
 class UserService extends MainService {
 	const SUBSCRIPTION_SUCCESSFUL = "Subscription successful. Ensure to copy and store the generated token.";
 	const UPDATE_PROFILE_SUCCESSFUL = "Profile updated successful. Ensure to copy and store the generated token.";
+	const UNAVAILABLE_EMAIL = "Account with provided email address does not exist";
+	const INVALID_TOKEN = "Invalid Token. Please enter your subscription token.";
 
 	protected $server;
 
@@ -33,18 +35,33 @@ class UserService extends MainService {
 	public function UpdateProfile (string $oldEmail, string $newEmail, string $token) {
 		if ( $user = $this->userRepo->findUserByEmail($oldEmail) ) {
 			if ( $this->tokenIsValid($user, $token) ) {
-				$user = $this->userRepo->updateUser($user, $newEmail);
-				return $this->genEmailTokenResponse($user, $token, self::UPDATE_PROFILE_SUCCESSFUL);
+				$newToken = $this->generateHash($newEmail);
+				$user = $this->userRepo->updateUser($user, $newEmail, $newToken);
+				return $this->genEmailTokenResponse($user, $newToken, self::UPDATE_PROFILE_SUCCESSFUL);
 			} else {
-				// token is not valid
+				return $this->getInvalidTokenResponse($token);
 			}
 		} else {
-			// user is not found
+			return $this->getUnavailableEmailResponse($oldEmail);
 		}
 	}
 
     public function tokenIsValid (User $user, string $token) : bool {
         return $this->generateHash($user->email) == $token;
+    }
+
+    public function getInvalidTokenResponse (string $token) {
+    	return [
+    		'token' => $token,
+    		'message' => self::INVALID_TOKEN
+    	];
+    }
+
+    private function getUnavailableEmailResponse (string $email) {
+    	return [
+    		'email' => $email,
+    		'message' => self::UNAVAILABLE_EMAIL
+    	];
     }
 
     public function genEmailTokenResponse (User $user, string $token, string $message) {

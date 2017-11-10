@@ -24,10 +24,6 @@ class BookService extends MainService {
 		$this->server->setClass(self::class, $this->server, $this->userRepo, $this->bookRepo);
 	}
 
-	public function handle () {
-		$this->server->handle();
-	}
-
 	public function AddBook (string $title, string $token) {
 		if ($user = $this->userRepo->findUserByToken($token)) {
 			if ($book = $this->bookRepo->createBook($user, $title)) {
