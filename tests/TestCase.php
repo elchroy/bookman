@@ -1,6 +1,6 @@
 <?php
 
-abstract class TestCase extends Laravel\Lumen\Testing\TestCase
+abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
 {
     /**
      * Creates the application.
@@ -10,5 +10,16 @@ abstract class TestCase extends Laravel\Lumen\Testing\TestCase
     public function createApplication()
     {
         return require __DIR__.'/../bootstrap/app.php';
+    }
+
+    public function setUp () {
+    	parent::setUp();
+    	$this->artisan('migrate');
+    	$this->artisan('db:seed');
+    }
+
+    public function tearDown () {
+    	$this->artisan('migrate:reset');
+    	parent::tearDown();
     }
 }
