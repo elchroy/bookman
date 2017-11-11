@@ -7,17 +7,17 @@ use App\Models\V1\User;
 
 class BookRepository {
 
-	public function createBook (User $user, string $title) {
+	public static function createBook (User $user, string $title) {
 		return $user->books()->create([
 			'title' => $title
 		]);
 	}
 
-	public function findById (User $user, string $id) {
+	public static function findById (User $user, string $id) {
 		return $user->books()->find($id);
 	}
 
-	public function findAll (User $user) {
+	public static function findAll (User $user) {
 		return $user->books->map(function (Book $book) {
 			return [
 				"id" => $book->id,
@@ -26,7 +26,7 @@ class BookRepository {
 		})->toArray();
 	}
 
-	public function updateBook (Book $book, string $newTitle) {
+	public static function updateBook (Book $book, string $newTitle) {
 		$book->update([
 			'title' => $newTitle
 		]);
