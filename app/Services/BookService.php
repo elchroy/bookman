@@ -60,9 +60,9 @@ class BookService extends MainService
         if ($user = UserRepository::findUserByToken($token)) {
             $book = BookRepository::createBook($user, $title);
 
-            return $this->getBookResponse($book, self::BOOK_ADDED_SUCCESSFULLY);
+            return $this->respond($this->getBookResponse($book, self::BOOK_ADDED_SUCCESSFULLY), 201);
         } else {
-            return $this->getInvalidTokenResponse($token);
+            return $this->respond($this->getInvalidTokenResponse($token), 400);
         }
     }
 
@@ -78,10 +78,10 @@ class BookService extends MainService
     {
         if ($user = UserRepository::findUserByToken($token)) {
             return ($book = BookRepository::findById($user, $id))
-            ? $this->getBookResponse($book, self::BOOK_FOUND)
-            : $this->getMessageResponse(self::BOOK_NOT_FOUND);
+            ? $this->respond($this->getBookResponse($book, self::BOOK_FOUND), 200)
+            : $this->respond($this->getMessageResponse(self::BOOK_NOT_FOUND), 404);
         } else {
-            return $this->getInvalidTokenResponse($token);
+            return $this->respond($this->getInvalidTokenResponse($token), 400);
         }
     }
 
@@ -98,10 +98,10 @@ class BookService extends MainService
             $books = BookRepository::findAll($user);
 
             return count($books) > 0
-            ? $this->getBooksResponse($books, self::BOOKS_FOUND)
-            : $this->getMessageResponse(self::BOOK_LIST_IS_EMTPY);
+            ? $this->respond($this->getBooksResponse($books, self::BOOKS_FOUND), 200)
+            : $this->respond($this->getMessageResponse(self::BOOK_LIST_IS_EMTPY), 404);
         } else {
-            return $this->getInvalidTokenResponse($token);
+            return $this->respond($this->getInvalidTokenResponse($token), 400);
         }
     }
 
@@ -120,12 +120,12 @@ class BookService extends MainService
             if ($book = BookRepository::findById($user, $id)) {
                 $book = BookRepository::updateBook($book, $newTitle);
 
-                return $this->getBookResponse($book, self::BOOK_UPDATED_SUCCESSFULLY);
+                return $this->respond($this->getBookResponse($book, self::BOOK_UPDATED_SUCCESSFULLY), 200);
             } else {
-                return $this->getMessageResponse(self::BOOK_NOT_FOUND);
+                return $this->respond($this->getMessageResponse(self::BOOK_NOT_FOUND), 404);
             }
         } else {
-            return $this->getInvalidTokenResponse($token);
+            return $this->respond($this->getInvalidTokenResponse($token), 400);
         }
     }
 
@@ -143,12 +143,12 @@ class BookService extends MainService
             if ($book = BookRepository::findById($user, $id)) {
                 $book->delete();
 
-                return $this->getMessageResponse(self::BOOK_DELETED);
+                return $this->respond($this->getMessageResponse(self::BOOK_DELETED), 204);
             } else {
-                return $this->getMessageResponse(self::BOOK_NOT_FOUND);
+                return $this->respond($this->getMessageResponse(self::BOOK_NOT_FOUND), 404);
             }
         } else {
-            return $this->getInvalidTokenResponse($token);
+            return $this->respond($this->getInvalidTokenResponse($token), 400);
         }
     }
 
