@@ -2,31 +2,32 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\API\V1\SoapController;
+use App\Services\MainService;
 use Mockery as M;
 use SoapServer;
 use TestCase;
-use App\Services\MainService;
-use App\Http\Controllers\API\V1\SoapController;
-
 
 class SoapControllerTest extends TestCase
 {
-	private $mockServer;
+    private $mockServer;
 
-	public function setUp () {
-		parent::setUp();
-		$this->mockServer = M::mock(SoapServer::class);
-	}
+    public function setUp()
+    {
+        parent::setUp();
+        $this->mockServer = M::mock(SoapServer::class);
+    }
 
-	public function testControllerCanHandleSoapRequest () {
-		$serviceName = "MainService";
-		
-		$this->mockServer
-			->shouldReceive('setClass')
-			->with(MainService::class)
-			->shouldReceive('handle');
+    public function testControllerCanHandleSoapRequest()
+    {
+        $serviceName = 'MainService';
 
-		$controller = new SoapController();
-		$controller->handle($this->mockServer, $serviceName);
-	}
+        $this->mockServer
+            ->shouldReceive('setClass')
+            ->with(MainService::class)
+            ->shouldReceive('handle');
+
+        $controller = new SoapController();
+        $controller->handle($this->mockServer, $serviceName);
+    }
 }

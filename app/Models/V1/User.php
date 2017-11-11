@@ -2,12 +2,11 @@
 
 namespace App\Models\V1;
 
-use App\Models\V1\Book;
 use Illuminate\Auth\Authenticatable;
-use Laravel\Lumen\Auth\Authorizable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -19,14 +18,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'email', 'token'
+        'email', 'token',
     ];
 
     /**
      * Association with Book's model
-     * One user has mane books
+     * One user has mane books.
      */
-    public function books () {
+    public function books()
+    {
         return $this->hasMany(Book::class);
     }
 }
