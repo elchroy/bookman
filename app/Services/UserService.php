@@ -37,7 +37,7 @@ class UserService extends MainService
         $token = $this->generateHash($email);
 
         return ($user = UserRepository::createUser($email, $token))
-        ? $this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL)
+        ? $this->respond($this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL), 201)
         : null;
     }
 
@@ -57,12 +57,12 @@ class UserService extends MainService
                 $newToken = $this->generateHash($newEmail);
                 $user = UserRepository::updateUser($user, $newEmail, $newToken);
 
-                return $this->genEmailTokenResponse($user, $newToken, self::UPDATE_PROFILE_SUCCESSFUL);
+                return $this->respond($this->genEmailTokenResponse($user, $newToken, self::UPDATE_PROFILE_SUCCESSFUL), 200);
             } else {
-                return $this->getInvalidTokenResponse($token);
+                return $this->respond($this->getInvalidTokenResponse($token), 400);
             }
         } else {
-            return $this->getUnavailableAccountWithEmailResponse($oldEmail);
+            return $this->respond($this->getUnavailableAccountWithEmailResponse($oldEmail), 404);
         }
     }
 

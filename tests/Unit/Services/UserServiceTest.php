@@ -23,10 +23,14 @@ class UserServiceTest extends TestCase
         $message = 'Subscription successful. Ensure to copy and store the generated token.';
 
         $response = $this->service->Subscribe($email);
+        
+        $this->assertEquals(201, $response['status']);
 
-        $this->assertEquals($email, $response['email']);
-        $this->assertEquals($token, $response['token']);
-        $this->assertEquals($message, $response['message']);
+        $body = $response['body'];
+
+        $this->assertEquals($email, $body['email']);
+        $this->assertEquals($token, $body['token']);
+        $this->assertEquals($message, $body['message']);
     }
 
     public function testServiceCanUpdateAUserProfile()
@@ -36,12 +40,16 @@ class UserServiceTest extends TestCase
         $testToken = '2ba135fbbd41ea0ae84e8c6ef122793106adfa25ae10a4879bbaeb8a238bfd8f';
 
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
+        
+        $this->assertEquals(200, $response['status']);
+
+        $body = $response['body'];
 
         $newToken = 'd064dc11336c4c74ce0e3d8de464e31ad134eb579734546f634c9b0e7df7673b';
 
-        $this->assertEquals($newEmail, $response['email']);
-        $this->assertEquals($newToken, $response['token']);
-        $this->assertEquals('Profile updated successful. Ensure to copy and store the generated token.', $response['message']);
+        $this->assertEquals($newEmail, $body['email']);
+        $this->assertEquals($newToken, $body['token']);
+        $this->assertEquals('Profile updated successful. Ensure to copy and store the generated token.', $body['message']);
     }
 
     public function testServiceReturnsUnavailableEmailAddress()
@@ -51,9 +59,13 @@ class UserServiceTest extends TestCase
         $testToken = '2ba135fbbd41ea0ae84e8c6ef122793106adfa25ae10a4879bbaeb8a238bfd8f';
         $message = 'Account with provided email address does not exist';
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
+        
+        $this->assertEquals(404, $response['status']);
 
-        $this->assertEquals($oldEmail, $response['email']);
-        $this->assertEquals($message, $response['message']);
+        $body = $response['body'];
+
+        $this->assertEquals($oldEmail, $body['email']);
+        $this->assertEquals($message, $body['message']);
     }
 
     public function testServiceReturnsInvalidToken()
@@ -63,8 +75,12 @@ class UserServiceTest extends TestCase
         $testToken = 'invalid_token';
         $message = 'Invalid Token. Please enter your subscription token.';
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
+        
+        $this->assertEquals(400, $response['status']);
 
-        $this->assertEquals($testToken, $response['token']);
-        $this->assertEquals($message, $response['message']);
+        $body = $response['body'];
+
+        $this->assertEquals($testToken, $body['token']);
+        $this->assertEquals($message, $body['message']);
     }
 }
