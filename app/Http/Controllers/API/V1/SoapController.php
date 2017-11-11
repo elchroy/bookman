@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 class SoapController extends Controller
 {   
 	public function handle (Request $request, SoapServer $server, string $serviceName) {
-		// dd($request);
 		$serviceClass = "App\\Services\\$serviceName";
 		$server->setClass($serviceClass);
 		$server->handle();

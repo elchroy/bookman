@@ -13,6 +13,8 @@ class BookServiceTest extends TestCase {
 	public function setUp () {
 		parent::setUp();
 
+		$this->invalidTokenMessage = "Invalid Token. Please enter your subscription token.";
+		$this->invalidToken = "INVALID_TOKEN";
 		$this->service = new BookService();
 		$this->user = User::find(1);
 	}
@@ -25,6 +27,14 @@ class BookServiceTest extends TestCase {
 		$this->assertEquals("A new book was created successful.", $response["message"]);
 	}
 
+	public function testServiceFailsToAddBookWhenTokenIsInvalid () {
+		$title = "New Book";
+		$response = $this->service->AddBook($title, $this->invalidToken);
+
+		$this->assertEquals($this->invalidToken, $response["token"]);
+		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
+	}
+
 	public function testServiceCanGetBookById () {
 		$title = "Lengend of the Seeder";
 		
@@ -32,6 +42,19 @@ class BookServiceTest extends TestCase {
 
 		$this->assertEquals($title, $response["book"]['title']);
 		$this->assertEquals("Book found", $response["message"]);
+	}
+
+	public function testServiceFailsToGetBookWhenTokenIsInvalid () {
+		$response = $this->service->GetBook(1, $this->invalidToken);
+
+		$this->assertEquals($this->invalidToken, $response["token"]);
+		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
+	}
+
+	public function testServiceFailsToGetBookWhenBookIsNotFound () {
+		$response = $this->service->GetBook(1000, $this->user->token);
+
+		$this->assertEquals("Book not found", $response["message"]);
 	}
 
 	public function testServiceCanGetBooksBelongingToAUser () {
@@ -42,12 +65,27 @@ class BookServiceTest extends TestCase {
 		$this->assertEquals("Books found", $response["message"]);
 	}
 
+	public function testServiceFailsToGetBooksWhenTokenIsInvalid () {
+		$response = $this->service->GetBooks($this->invalidToken);
+
+		$this->assertEquals($this->invalidToken, $response["token"]);
+		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
+	}
+
 	public function testServiceCanUpdateBookBelongingToAUser () {
 		$title = "New Lengend of the Seeder";
 		$response = $this->service->UpdateBook(1, $title, $this->user->token);
 
 		$this->assertEquals($title, $response["book"]['title']);
 		$this->assertEquals("Book updated successfully", $response["message"]);
+	}
+
+	public function testServiceFailsToUpdateBookWhenTokenIsInvalid () {
+		$title = "New Lengend of the Seeder";
+		$response = $this->service->UpdateBook(1, $title, $this->invalidToken);
+
+		$this->assertEquals($this->invalidToken, $response["token"]);
+		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
 	}
 
 	public function testServiceCanAllowAUserToDeleteHisBook () {
@@ -57,5 +95,12 @@ class BookServiceTest extends TestCase {
 		
 		$this->assertEquals(50, count($books));
 		$this->assertEquals("Book deleted successfully", $response["message"]);
+	}
+
+	public function testServiceFailsToDeleteBookWhenTokenIsInvalid () {
+		$response = $this->service->DeleteBook(1, $this->invalidToken);
+
+		$this->assertEquals($this->invalidToken, $response["token"]);
+		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
 	}
 }

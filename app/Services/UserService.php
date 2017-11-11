@@ -6,6 +6,9 @@ use App\Models\V1\User;
 use App\Services\MainService;
 use App\Repositories\V1\UserRepository;
 
+/**
+ * User Service to handle SOAP calls to manage users
+ */
 class UserService extends MainService {
 
 	/**
@@ -22,11 +25,6 @@ class UserService extends MainService {
 	 * Account with given email address does not exist
 	 */
 	const UNAVAILABLE_ACCOUNT_WITH_EMAIL = "Account with provided email address does not exist";
-
-	/**
-	 * Token provided is invalie, does not match email.
-	 */
-	const INVALID_TOKEN = "Invalid Token. Please enter your subscription token.";
 
 	/**
 	 * Allows users to subscirbe to the service with their email address
@@ -71,18 +69,6 @@ class UserService extends MainService {
 	 */
     private function tokenIsValid (User $user, string $token) : bool {
         return $this->generateHash($user->email) == $token;
-    }
-
-    /**
-     * Response for Invalid token
-     * @param  string $token Invalid token
-     * @return [array
-     */
-    private function getInvalidTokenResponse (string $token) : array {
-    	return [
-    		'token' => $token,
-    		'message' => self::INVALID_TOKEN
-    	];
     }
 
     /**
