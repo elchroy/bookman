@@ -2,13 +2,9 @@
 
 namespace Tests\Unit\Services;
 
-use Mockery as M;
-use \App\Models\V1\User;
-use App\Services\BookService;
-use App\Services\UserService;
-use App\Repositories\V1\BookRepository;
-use App\Repositories\V1\UserRepository;
 use TestCase;
+use App\Models\V1\User;
+use App\Services\BookService;
 
 class BookServiceTest extends TestCase {
 
@@ -17,14 +13,7 @@ class BookServiceTest extends TestCase {
 	public function setUp () {
 		parent::setUp();
 
-		$this->mockServer = M::mock(\SoapServer::class);
-
-		$this->userRepo = new UserRepository();
-		$this->bookRepo = new BookRepository();
-
-		$this->mockServer
-			->shouldReceive('setClass');
-		$this->service = new BookService($this->mockServer, $this->userRepo, $this->bookRepo);
+		$this->service = new BookService();
 		$this->user = User::find(1);
 	}
 

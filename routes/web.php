@@ -16,6 +16,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(["prefix" => "/api/v1"], function () use ($router) {
-	$router->post("/UserService", "API\V1\UsersController@handle");
-	$router->post("/BookService", "API\V1\BooksController@handle");
+	$router->post("/{serviceName}", "API\V1\SoapController@handle");
 });

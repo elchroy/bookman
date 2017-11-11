@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use SoapServer;
 use App\Models\V1\User;
 use App\Services\MainService;
 use App\Repositories\V1\UserRepository;
@@ -13,30 +12,18 @@ class UserService extends MainService {
 	const UNAVAILABLE_EMAIL = "Account with provided email address does not exist";
 	const INVALID_TOKEN = "Invalid Token. Please enter your subscription token.";
 
-	protected $server;
-
-	public function __construct (SoapServer $server, UserRepository $userRepo) {
-		parent::__construct($userRepo);
-		$this->server = $server;
-		$this->server->setClass(self::class, $this->server, $this->userRepo);
-	}
-
-	public function handle () {
-		$this->server->handle();
-	}
-
 	public function Subscribe (string $email) {
 		$token = $this->generateHash($email);
-		if ($user = $this->userRepo->createUser($email, $token)) {
+		if ($user = UserRepository::createUser($email, $token)) {
 			return $this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL);
 		}
 	}
 
 	public function UpdateProfile (string $oldEmail, string $newEmail, string $token) {
-		if ( $user = $this->userRepo->findUserByEmail($oldEmail) ) {
+		if ( $user = UserRepository::findUserByEmail($oldEmail) ) {
 			if ( $this->tokenIsValid($user, $token) ) {
 				$newToken = $this->generateHash($newEmail);
-				$user = $this->userRepo->updateUser($user, $newEmail, $newToken);
+				$user = UserRepository::updateUser($user, $newEmail, $newToken);
 				return $this->genEmailTokenResponse($user, $newToken, self::UPDATE_PROFILE_SUCCESSFUL);
 			} else {
 				return $this->getInvalidTokenResponse($token);

@@ -6,18 +6,18 @@ use App\Models\V1\User;
 
 class UserRepository {
 
-	public function createUser (string $email, string $token) {
+	public static function createUser (string $email, string $token) {
 		return User::create([
 			'email' => $email,
 			'token' => $token
 		]);
 	}
 
-	public function findUserByEmail (string $email) {
+	public static function findUserByEmail (string $email) {
 		return User::where('email', $email)->first();
 	}
 
-	public function updateUser(User $user, string $newEmail, string $token) {
+	public static function updateUser(User $user, string $newEmail, string $token) {
 		$user->update([
 			'email' => $newEmail
 		]);
@@ -26,7 +26,7 @@ class UserRepository {
 		return $user;
 	}
 
-	public function findUserByToken (string $token) {
+	public static function findUserByToken (string $token) {
 		return User::where('token', $token)->first();
 	}
 }

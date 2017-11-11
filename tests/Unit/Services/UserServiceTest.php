@@ -2,9 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use Mockery as M;
 use App\Services\UserService;
-use App\Repositories\V1\UserRepository;
 use TestCase;
 
 class UserServiceTest extends TestCase {
@@ -14,19 +12,7 @@ class UserServiceTest extends TestCase {
 	public function setUp () {
 		parent::setUp();
 
-		$this->mockServer = M::mock(\SoapServer::class);
-
-		$this->repo = new UserRepository();
-
-		$this->mockServer
-			->shouldReceive('setClass');
-		$this->service = new UserService($this->mockServer, $this->repo);
-	}
-
-	public function testServiceCanHandleRequests () {
-		$this->mockServer
-			->shouldReceive('handle');
-		$this->service->handle();
+		$this->service = new UserService();
 	}
 
 	public function testServiceCanSubscribeAUserWithEmail () {
