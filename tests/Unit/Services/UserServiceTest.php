@@ -33,11 +33,12 @@ class UserServiceTest extends TestCase
         $this->assertEquals($message, $body['message']);
     }
 
-    public function testServiceRejectsDuplicateEmailAddressesForSubscription () {
-        $response = $this->service->Subscribe("current-user@email.com");
+    public function testServiceRejectsDuplicateEmailAddressesForSubscription()
+    {
+        $response = $this->service->Subscribe('current-user@email.com');
 
         $this->assertEquals(400, $response['status']);
-        $this->assertEquals("The email address provided belongs to another user.", $response['body']['message']);
+        $this->assertEquals('The email address provided belongs to another user.', $response['body']['message']);
     }
 
     public function testServiceCanUpdateAUserProfile()

@@ -26,7 +26,7 @@ class UserService extends MainService
     const UNAVAILABLE_ACCOUNT_WITH_EMAIL = 'Account with provided email address does not exist';
 
     /**
-     * Email address provided already exists
+     * Email address provided already exists.
      */
     const DUPLICATE_EMAIL = 'The email address provided belongs to another user.';
 
@@ -48,7 +48,6 @@ class UserService extends MainService
         } catch (\Exception $e) {
             return $this->respond($this->getMessageResponse(self::DUPLICATE_EMAIL), 400);
         }
-
     }
 
     /**
