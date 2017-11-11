@@ -11,16 +11,22 @@ use App\Http\Controllers\API\V1\SoapController;
 
 class SoapControllerTest extends TestCase
 {
+	private $mockServer;
+
+	public function setUp () {
+		parent::setUp();
+		$this->mockServer = M::mock(SoapServer::class);
+	}
+
 	public function testControllerCanHandleSoapRequest () {
-		$mockServer = M::mock(SoapServer::class);
 		$serviceName = "MainService";
 		
-		$mockServer
+		$this->mockServer
 			->shouldReceive('setClass')
 			->with(MainService::class)
 			->shouldReceive('handle');
 
 		$controller = new SoapController();
-		$controller->handle($mockServer, $serviceName);
+		$controller->handle($this->mockServer, $serviceName);
 	}
 }
