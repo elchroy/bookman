@@ -18,10 +18,6 @@ class BookServiceTest extends TestCase
         $this->invalidToken = 'INVALID_TOKEN';
         $this->service = new BookService();
         $this->user = User::find(1);
-        $this->anotherUser = User::create([
-            'email' => 'current-user@email.com',
-            'token' => '__CURRENT_USER_TOKEN__',
-        ]);
     }
 
     public function testServiceCanAddBook()

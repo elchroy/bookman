@@ -37,6 +37,20 @@ class MainService
     }
 
     /**
+     * Response with simple message.
+     *
+     * @param string $message Information to be sent to user
+     *
+     * @return [type] [description]
+     */
+    public function getMessageResponse(string $message) : array
+    {
+        return [
+            'message' => $message,
+        ];
+    }
+
+    /**
      * Prepare response for user.
      *
      * @param array $body   response body

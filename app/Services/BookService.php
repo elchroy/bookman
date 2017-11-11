@@ -153,20 +153,6 @@ class BookService extends MainService
     }
 
     /**
-     * Response with simple message.
-     *
-     * @param string $message Information to be sent to user
-     *
-     * @return [type] [description]
-     */
-    private function getMessageResponse(string $message) : array
-    {
-        return [
-            'message' => $message,
-        ];
-    }
-
-    /**
      * Response with found book.
      *
      * @param Book   $book    Book that was found

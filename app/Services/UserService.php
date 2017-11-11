@@ -26,6 +26,11 @@ class UserService extends MainService
     const UNAVAILABLE_ACCOUNT_WITH_EMAIL = 'Account with provided email address does not exist';
 
     /**
+     * Email address provided already exists
+     */
+    const DUPLICATE_EMAIL = 'The email address provided belongs to another user.';
+
+    /**
      * Allows users to subscirbe to the service with their email address.
      *
      * @param string $email Email address for subscription.
@@ -36,9 +41,14 @@ class UserService extends MainService
     {
         $token = $this->generateHash($email);
 
-        return ($user = UserRepository::createUser($email, $token))
-        ? $this->respond($this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL), 201)
-        : null;
+        try {
+            return ($user = UserRepository::createUser($email, $token))
+            ? $this->respond($this->genEmailTokenResponse($user, $token, self::SUBSCRIPTION_SUCCESSFUL), 201)
+            : null;
+        } catch (\Exception $e) {
+            return $this->respond($this->getMessageResponse(self::DUPLICATE_EMAIL), 400);
+        }
+
     }
 
     /**
