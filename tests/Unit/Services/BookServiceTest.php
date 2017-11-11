@@ -17,6 +17,10 @@ class BookServiceTest extends TestCase {
 		$this->invalidToken = "INVALID_TOKEN";
 		$this->service = new BookService();
 		$this->user = User::find(1);
+		$this->anotherUser = User::create([
+			'email' => 'current-user@email.com',
+			'token' => "__CURRENT_USER_TOKEN__"
+		]);
 	}
 
 	public function testServiceCanAddBook () {
@@ -72,12 +76,25 @@ class BookServiceTest extends TestCase {
 		$this->assertEquals($this->invalidTokenMessage, $response["message"]);
 	}
 
+	public function testServiceRespondsWhenThereAreNoBookForCurrentUser () {
+		$response = $this->service->GetBooks($this->anotherUser->token);
+
+		$this->assertEquals("There are no books in your list.", $response["message"]);
+	}
+
 	public function testServiceCanUpdateBookBelongingToAUser () {
 		$title = "New Lengend of the Seeder";
 		$response = $this->service->UpdateBook(1, $title, $this->user->token);
 
 		$this->assertEquals($title, $response["book"]['title']);
 		$this->assertEquals("Book updated successfully", $response["message"]);
+	}
+
+	public function testServiceDoesNotUpdateWhenBookINotFound () {
+		$title = "New Lengend of the Seeder";
+		$response = $this->service->UpdateBook(1, $title, $this->anotherUser->token);
+
+		$this->assertEquals("Book not found", $response["message"]);
 	}
 
 	public function testServiceFailsToUpdateBookWhenTokenIsInvalid () {
@@ -95,6 +112,12 @@ class BookServiceTest extends TestCase {
 		
 		$this->assertEquals(50, count($books));
 		$this->assertEquals("Book deleted successfully", $response["message"]);
+	}
+
+	public function testServiceDoesNotDeleteWhenBookINotFound () {
+		$response = $this->service->DeleteBook(1, $this->anotherUser->token);
+
+		$this->assertEquals("Book not found", $response["message"]);
 	}
 
 	public function testServiceFailsToDeleteBookWhenTokenIsInvalid () {
