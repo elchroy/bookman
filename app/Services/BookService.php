@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use SoapServer;
 use App\Services\MainService;
 use App\Models\V1\User;
 use App\Models\V1\Book;
@@ -16,50 +15,42 @@ class BookService extends MainService {
 	const BOOK_DELETED = "Book deleted successfully";
 	const BOOKS_FOUND = "Books found";
 
-	
-
-	public function __construct (SoapServer $server, UserRepository $userRepo, BookRepository $bookRepo) {
-		parent::__construct($userRepo, $bookRepo);
-		$this->server = $server;
-		$this->server->setClass(self::class, $this->server, $this->userRepo, $this->bookRepo);
-	}
-
 	public function AddBook (string $title, string $token) {
-		if ($user = $this->userRepo->findUserByToken($token)) {
-			if ($book = $this->bookRepo->createBook($user, $title)) {
+		if ($user = UserRepository::findUserByToken($token)) {
+			if ($book = BookRepository::createBook($user, $title)) {
 				return $this->getBookResponse($book, self::BOOK_ADDED_SUCCESSFULLY);
 			}
 		}
 	}
 
 	public function GetBook (int $id, string $token) {
-		if ($user = $this->userRepo->findUserByToken($token)) {
-			if ($book = $this->bookRepo->findById($user, $id)) {
+		if ($user = UserRepository::findUserByToken($token)) {
+			if ($book = BookRepository::findById($user, $id)) {
 				return $this->getBookResponse($book, self::BOOK_FOUND);
 			}
 		}
 	}
 
 	public function GetBooks (string $token) {
-		if ($user = $this->userRepo->findUserByToken($token)) {
-			if ($books = $this->bookRepo->findAll($user)) {
+		if ($user = UserRepository::findUserByToken($token)) {
+			if ($books = BookRepository::findAll($user)) {
 				return $this->getBooksResponse($books, self::BOOKS_FOUND);
 			}
 		}
 	}
 
 	public function UpdateBook (int $id, string $newTitle, string $token) {
-		if ($user = $this->userRepo->findUserByToken($token)) {
-			if ($book = $this->bookRepo->findById($user, $id)) {
-				$book = $this->bookRepo->updateBook($book, $newTitle);
+		if ($user = UserRepository::findUserByToken($token)) {
+			if ($book = BookRepository::findById($user, $id)) {
+				$book = BookRepository::updateBook($book, $newTitle);
 				return $this->getBookResponse($book, self::BOOK_UPDATED_SUCCESSFULLY);
 			}
 		}
 	}
 
 	public function DeleteBook (int $id, string $token) {
-		if ($user = $this->userRepo->findUserByToken($token)) {
-			if ($book = $this->bookRepo->findById($user, $id)) {
+		if ($user = UserRepository::findUserByToken($token)) {
+			if ($book = BookRepository::findById($user, $id)) {
 				$book->delete();
 				return $this->getDeleteResponse(self::BOOK_DELETED);
 			}
