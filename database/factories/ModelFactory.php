@@ -20,7 +20,7 @@ $factory->define(App\Models\V1\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\V1\Book::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->sentence(rand(5, 15)),
-        'user_id' => 1
+        'title'   => $faker->sentence(rand(5, 15)),
+        'user_id' => 1,
     ];
 });

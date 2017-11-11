@@ -15,6 +15,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(["prefix" => "/api/v1"], function () use ($router) {
-	$router->post("/{serviceName}", "API\V1\SoapController@handle");
+$router->group(['prefix' => '/api/v1'], function () use ($router) {
+    $router->post('/{serviceName}', "API\V1\SoapController@handle");
 });
