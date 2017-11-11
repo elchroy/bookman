@@ -29,16 +29,25 @@ A web service that enables easy management of Bookman resources (basically books
                 <ns1:SubscribeResponse>
                     <return xsi:type="ns2:Map">
                         <item>
-                            <key xsi:type="xsd:string">email</key>
-                            <value xsi:type="xsd:string">new-account@email.com</value>
+                            <key xsi:type="xsd:string">status</key>
+                            <value xsi:type="xsd:int">201</value>
                         </item>
                         <item>
-                            <key xsi:type="xsd:string">token</key>
-                            <value xsi:type="xsd:string">{ NEW_TOKEN }</value>
-                        </item>
-                        <item>
-                            <key xsi:type="xsd:string">message</key>
-                            <value xsi:type="xsd:string">Subscription successful. Ensure to copy and store the generated token.</value>
+                            <key xsi:type="xsd:string">body</key>
+                            <value xsi:type="ns2:Map">
+                                <item>
+                                    <key xsi:type="xsd:string">email</key>
+                                    <value xsi:type="xsd:string">new-account@email.com</value>
+                                </item>
+                                <item>
+                                    <key xsi:type="xsd:string">token</key>
+                                    <value xsi:type="xsd:string">{ NEW_TOKEN }</value>
+                                </item>
+                                <item>
+                                    <key xsi:type="xsd:string">message</key>
+                                    <value xsi:type="xsd:string">Subscription successful. Ensure to copy and store the generated token.</value>
+                                </item>
+                            </value>
                         </item>
                     </return>
                 </ns1:SubscribeResponse>
@@ -70,16 +79,25 @@ A web service that enables easy management of Bookman resources (basically books
             <ns1:UpdateProfileResponse>
                 <return xsi:type="ns2:Map">
                     <item>
-                        <key xsi:type="xsd:string">email</key>
-                        <value xsi:type="xsd:string">updated-account@email.com</value>
+                        <key xsi:type="xsd:string">status</key>
+                        <value xsi:type="xsd:int">200</value>
                     </item>
                     <item>
-                        <key xsi:type="xsd:string">token</key>
-                        <value xsi:type="xsd:string">{ NEW_TOKEN }</value>
-                    </item>
-                    <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">Profile updated successful. Ensure to copy and store the generated token.</value>
+                        <key xsi:type="xsd:string">body</key>
+                        <value xsi:type="ns2:Map">
+                            <item>
+                                <key xsi:type="xsd:string">email</key>
+                                <value xsi:type="xsd:string">updated-account@email.com</value>
+                            </item>
+                            <item>
+                                <key xsi:type="xsd:string">token</key>
+                                <value xsi:type="xsd:string">{ NEW_TOKEN }</value>
+                            </item>
+                            <item>
+                                <key xsi:type="xsd:string">message</key>
+                                <value xsi:type="xsd:string">Profile updated successful. Ensure to copy and store the generated token.</value>
+                            </item>
+                        </value>
                     </item>
                 </return>
             </ns1:UpdateProfileResponse>
@@ -112,21 +130,30 @@ A web service that enables easy management of Bookman resources (basically books
             <ns1:AddBookResponse>
                 <return xsi:type="ns2:Map">
                     <item>
-                        <key xsi:type="xsd:string">book</key>
-                        <value xsi:type="ns2:Map">
-                            <item>
-                                <key xsi:type="xsd:string">id</key>
-                                <value xsi:type="xsd:int">1</value>
-                            </item>
-                            <item>
-                                <key xsi:type="xsd:string">title</key>
-                                <value xsi:type="xsd:string">Things Fall Apart</value>
-                            </item>
-                        </value>
+                        <key xsi:type="xsd:string">status</key>
+                        <value xsi:type="xsd:int">201</value>
                     </item>
                     <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">A new book was created successful.</value>
+                        <key xsi:type="xsd:string">body</key>
+                        <value xsi:type="ns2:Map">
+                            <item>
+                                <key xsi:type="xsd:string">book</key>
+                                <value xsi:type="ns2:Map">
+                                    <item>
+                                        <key xsi:type="xsd:string">id</key>
+                                        <value xsi:type="xsd:int">1</value>
+                                    </item>
+                                    <item>
+                                        <key xsi:type="xsd:string">title</key>
+                                        <value xsi:type="xsd:string">Things Fall Apart</value>
+                                    </item>
+                                </value>
+                            </item>
+                            <item>
+                                <key xsi:type="xsd:string">message</key>
+                                <value xsi:type="xsd:string">A new book was created successful.</value>
+                            </item>
+                        </value>
                     </item>
                 </return>
             </ns1:AddBookResponse>
@@ -157,21 +184,30 @@ A web service that enables easy management of Bookman resources (basically books
             <ns1:GetBookResponse>
                 <return xsi:type="ns2:Map">
                     <item>
-                        <key xsi:type="xsd:string">book</key>
-                        <value xsi:type="ns2:Map">
-                            <item>
-                                <key xsi:type="xsd:string">id</key>
-                                <value xsi:type="xsd:int">1</value>
-                            </item>
-                            <item>
-                                <key xsi:type="xsd:string">title</key>
-                                <value xsi:type="xsd:string">Things Fall Apart</value>
-                            </item>
-                        </value>
+                        <key xsi:type="xsd:string">status</key>
+                        <value xsi:type="xsd:int">200</value>
                     </item>
                     <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">Book found</value>
+                        <key xsi:type="xsd:string">body</key>
+                        <value xsi:type="ns2:Map">
+                            <item>
+                                <key xsi:type="xsd:string">book</key>
+                                <value xsi:type="ns2:Map">
+                                    <item>
+                                        <key xsi:type="xsd:string">id</key>
+                                        <value xsi:type="xsd:int">1</value>
+                                    </item>
+                                    <item>
+                                        <key xsi:type="xsd:string">title</key>
+                                        <value xsi:type="xsd:string">Things Fall Apart</value>
+                                    </item>
+                                </value>
+                            </item>
+                            <item>
+                                <key xsi:type="xsd:string">message</key>
+                                <value xsi:type="xsd:string">Book found</value>
+                            </item>
+                        </value>
                     </item>
                 </return>
             </ns1:GetBookResponse>
@@ -196,28 +232,37 @@ A web service that enables easy management of Bookman resources (basically books
 + Response 200 (application/xml)
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://localhost:8000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://localhost:8000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
         <SOAP-ENV:Body>
             <ns1:GetBooksResponse>
                 <return xsi:type="ns2:Map">
                     <item>
-                        <key xsi:type="xsd:string">books</key>
-                        <value SOAP-ENC:arrayType="ns2:Map[1]" xsi:type="SOAP-ENC:Array">
-                            <item xsi:type="ns2:Map">
-                                <item>
-                                    <key xsi:type="xsd:string">id</key>
-                                    <value xsi:type="xsd:int">1</value>
-                                </item>
-                                <item>
-                                    <key xsi:type="xsd:string">title</key>
-                                    <value xsi:type="xsd:string">Things Fall Apart</value>
-                                </item>
-                            </item>
-                        </value>
+                        <key xsi:type="xsd:string">status</key>
+                        <value xsi:type="xsd:int">200</value>
                     </item>
                     <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">Books found</value>
+                        <key xsi:type="xsd:string">body</key>
+                        <value xsi:type="ns2:Map">
+                            <item>
+                                <key xsi:type="xsd:string">books</key>
+                                <value SOAP-ENC:arrayType="ns2:Map[1]" xsi:type="SOAP-ENC:Array">
+                                    <item xsi:type="ns2:Map">
+                                        <item>
+                                            <key xsi:type="xsd:string">id</key>
+                                            <value xsi:type="xsd:int">1</value>
+                                        </item>
+                                        <item>
+                                            <key xsi:type="xsd:string">title</key>
+                                            <value xsi:type="xsd:string">Things Fall Apart</value>
+                                        </item>
+                                    </item>
+                                </value>
+                            </item>
+                            <item>
+                                <key xsi:type="xsd:string">message</key>
+                                <value xsi:type="xsd:string">Books found</value>
+                            </item>
+                        </value>
                     </item>
                 </return>
             </ns1:GetBooksResponse>
@@ -244,31 +289,40 @@ A web service that enables easy management of Bookman resources (basically books
 + Response 200 (application/xml)
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://localhost:8000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-        <SOAP-ENV:Body>
-            <ns1:UpdateBookResponse>
-                <return xsi:type="ns2:Map">
-                    <item>
-                        <key xsi:type="xsd:string">book</key>
-                        <value xsi:type="ns2:Map">
-                            <item>
-                                <key xsi:type="xsd:string">id</key>
-                                <value xsi:type="xsd:int">1</value>
-                            </item>
-                            <item>
-                                <key xsi:type="xsd:string">title</key>
-                                <value xsi:type="xsd:string">Things have fallen apart</value>
-                            </item>
-                        </value>
-                    </item>
-                    <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">Book updated successfully</value>
-                    </item>
-                </return>
-            </ns1:UpdateBookResponse>
-        </SOAP-ENV:Body>
-    </SOAP-ENV:Envelope>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://localhost:8000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <SOAP-ENV:Body>
+        <ns1:UpdateBookResponse>
+            <return xsi:type="ns2:Map">
+                <item>
+                    <key xsi:type="xsd:string">status</key>
+                    <value xsi:type="xsd:int">200</value>
+                </item>
+                <item>
+                    <key xsi:type="xsd:string">body</key>
+                    <value xsi:type="ns2:Map">
+                        <item>
+                            <key xsi:type="xsd:string">book</key>
+                            <value xsi:type="ns2:Map">
+                                <item>
+                                    <key xsi:type="xsd:string">id</key>
+                                    <value xsi:type="xsd:int">1</value>
+                                </item>
+                                <item>
+                                    <key xsi:type="xsd:string">title</key>
+                                    <value xsi:type="xsd:string">Things have fallen apart</value>
+                                </item>
+                            </value>
+                        </item>
+                        <item>
+                            <key xsi:type="xsd:string">message</key>
+                            <value xsi:type="xsd:string">Book updated successfully</value>
+                        </item>
+                    </value>
+                </item>
+            </return>
+        </ns1:UpdateBookResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
     
 ### Delete a Book [POST]
 
@@ -294,8 +348,17 @@ A web service that enables easy management of Bookman resources (basically books
             <ns1:DeleteBookResponse>
                 <return xsi:type="ns2:Map">
                     <item>
-                        <key xsi:type="xsd:string">message</key>
-                        <value xsi:type="xsd:string">Book deleted successfully</value>
+                        <key xsi:type="xsd:string">status</key>
+                        <value xsi:type="xsd:int">204</value>
+                    </item>
+                    <item>
+                        <key xsi:type="xsd:string">body</key>
+                        <value xsi:type="ns2:Map">
+                            <item>
+                                <key xsi:type="xsd:string">message</key>
+                                <value xsi:type="xsd:string">Book deleted successfully</value>
+                            </item>
+                        </value>
                     </item>
                 </return>
             </ns1:DeleteBookResponse>
