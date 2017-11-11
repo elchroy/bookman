@@ -9,7 +9,6 @@
         "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "~2.2",
         "satooshi/php-coveralls": "^1.0",
-        "guzzlehttp/guzzle": "^6.3",
         "ext-soap": "^7.1"
     },
     "require-dev": {
