@@ -28,7 +28,7 @@ class BookServiceTest extends TestCase
     {
         $title = 'New Book';
         $response = $this->service->AddBook($title, $this->user->token);
-        
+
         $this->assertEquals(201, $response['status']);
 
         $body = $response['body'];
@@ -41,7 +41,7 @@ class BookServiceTest extends TestCase
     {
         $title = 'New Book';
         $response = $this->service->AddBook($title, $this->invalidToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
@@ -55,7 +55,7 @@ class BookServiceTest extends TestCase
         $title = 'Lengend of the Seeder';
 
         $response = $this->service->GetBook(1, $this->user->token);
-        
+
         $this->assertEquals(200, $response['status']);
 
         $body = $response['body'];
@@ -67,7 +67,7 @@ class BookServiceTest extends TestCase
     public function testServiceFailsToGetBookWhenTokenIsInvalid()
     {
         $response = $this->service->GetBook(1, $this->invalidToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
@@ -79,7 +79,7 @@ class BookServiceTest extends TestCase
     public function testServiceFailsToGetBookWhenBookIsNotFound()
     {
         $response = $this->service->GetBook(1000, $this->user->token);
-        
+
         $this->assertEquals(404, $response['status']);
 
         $body = $response['body'];
@@ -90,7 +90,7 @@ class BookServiceTest extends TestCase
     public function testServiceCanGetBooksBelongingToAUser()
     {
         $response = $this->service->GetBooks($this->user->token);
-        
+
         $this->assertEquals(200, $response['status']);
 
         $body = $response['body'];
@@ -103,7 +103,7 @@ class BookServiceTest extends TestCase
     public function testServiceFailsToGetBooksWhenTokenIsInvalid()
     {
         $response = $this->service->GetBooks($this->invalidToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
@@ -115,7 +115,7 @@ class BookServiceTest extends TestCase
     public function testServiceRespondsWhenThereAreNoBookForCurrentUser()
     {
         $response = $this->service->GetBooks($this->anotherUser->token);
-        
+
         $this->assertEquals(404, $response['status']);
 
         $body = $response['body'];
@@ -127,7 +127,7 @@ class BookServiceTest extends TestCase
     {
         $title = 'New Lengend of the Seeder';
         $response = $this->service->UpdateBook(1, $title, $this->user->token);
-        
+
         $this->assertEquals(200, $response['status']);
 
         $body = $response['body'];
@@ -140,11 +140,10 @@ class BookServiceTest extends TestCase
     {
         $title = 'New Lengend of the Seeder';
         $response = $this->service->UpdateBook(1, $title, $this->anotherUser->token);
-        
+
         $this->assertEquals(404, $response['status']);
 
         $body = $response['body'];
-
 
         $this->assertEquals('Book not found', $body['message']);
     }
@@ -153,11 +152,10 @@ class BookServiceTest extends TestCase
     {
         $title = 'New Lengend of the Seeder';
         $response = $this->service->UpdateBook(1, $title, $this->invalidToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
-
 
         $this->assertEquals($this->invalidToken, $body['token']);
         $this->assertEquals($this->invalidTokenMessage, $body['message']);
@@ -166,11 +164,10 @@ class BookServiceTest extends TestCase
     public function testServiceCanAllowAUserToDeleteHisBook()
     {
         $response = $this->service->DeleteBook(1, $this->user->token);
-        
+
         $this->assertEquals(204, $response['status']);
 
         $body = $response['body'];
-
 
         $books = $this->user->books;
 
@@ -181,11 +178,10 @@ class BookServiceTest extends TestCase
     public function testServiceDoesNotDeleteWhenBookINotFound()
     {
         $response = $this->service->DeleteBook(1, $this->anotherUser->token);
-        
+
         $this->assertEquals(404, $response['status']);
 
         $body = $response['body'];
-
 
         $this->assertEquals('Book not found', $body['message']);
     }
@@ -193,11 +189,10 @@ class BookServiceTest extends TestCase
     public function testServiceFailsToDeleteBookWhenTokenIsInvalid()
     {
         $response = $this->service->DeleteBook(1, $this->invalidToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
-
 
         $this->assertEquals($this->invalidToken, $body['token']);
         $this->assertEquals($this->invalidTokenMessage, $body['message']);

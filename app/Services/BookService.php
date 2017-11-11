@@ -142,6 +142,7 @@ class BookService extends MainService
         if ($user = UserRepository::findUserByToken($token)) {
             if ($book = BookRepository::findById($user, $id)) {
                 $book->delete();
+
                 return $this->respond($this->getMessageResponse(self::BOOK_DELETED), 204);
             } else {
                 return $this->respond($this->getMessageResponse(self::BOOK_NOT_FOUND), 404);

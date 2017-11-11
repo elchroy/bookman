@@ -23,7 +23,7 @@ class UserServiceTest extends TestCase
         $message = 'Subscription successful. Ensure to copy and store the generated token.';
 
         $response = $this->service->Subscribe($email);
-        
+
         $this->assertEquals(201, $response['status']);
 
         $body = $response['body'];
@@ -40,7 +40,7 @@ class UserServiceTest extends TestCase
         $testToken = '2ba135fbbd41ea0ae84e8c6ef122793106adfa25ae10a4879bbaeb8a238bfd8f';
 
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
-        
+
         $this->assertEquals(200, $response['status']);
 
         $body = $response['body'];
@@ -59,7 +59,7 @@ class UserServiceTest extends TestCase
         $testToken = '2ba135fbbd41ea0ae84e8c6ef122793106adfa25ae10a4879bbaeb8a238bfd8f';
         $message = 'Account with provided email address does not exist';
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
-        
+
         $this->assertEquals(404, $response['status']);
 
         $body = $response['body'];
@@ -75,7 +75,7 @@ class UserServiceTest extends TestCase
         $testToken = 'invalid_token';
         $message = 'Invalid Token. Please enter your subscription token.';
         $response = $this->service->UpdateProfile($oldEmail, $newEmail, $testToken);
-        
+
         $this->assertEquals(400, $response['status']);
 
         $body = $response['body'];
