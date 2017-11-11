@@ -37,16 +37,18 @@ class MainService
     }
 
     /**
-     * Prepare response for user
-     * 
-     * @param  array  $body   response body
-     * @param  int    $status response status code
+     * Prepare response for user.
+     *
+     * @param array $body   response body
+     * @param int   $status response status code
+     *
      * @return array
      */
-    public function respond (array $body, int $status) : array {
+    public function respond(array $body, int $status) : array
+    {
         return [
             'status' => $status,
-            'body' => $body
+            'body'   => $body,
         ];
     }
 }
