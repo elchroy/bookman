@@ -7,7 +7,12 @@ use App\Repositories\V1\BookRepository;
 
 class MainService {
 	
-	public function generateHash ($data) {
+	/**
+	 * Generate hash using env key
+	 * @param  [type] $data to be hashed
+	 * @return [string] The generated hash
+	 */
+	public function generateHash ($data) : string {
 		return hash('sha256', $data . env("SECRET_KEY"));
 	}
 }
