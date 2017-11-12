@@ -3,11 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
-use SimpleXMLElement;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use SimpleXMLElement;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
@@ -51,10 +51,11 @@ class Handler extends ExceptionHandler
         $xml = new SimpleXMLElement('<xml/>');
 
         $response = $xml->addChild('RequestError');
-        $response->addChild('message', "There is a problem with this request. Please visit the documentation.");
+        $response->addChild('message', 'There is a problem with this request. Please visit the documentation.');
 
         header('Content-type: text/xml');
-        return ($xml->asXML());
+
+        return $xml->asXML();
 
         // return parent::render($request, $e);
     }
