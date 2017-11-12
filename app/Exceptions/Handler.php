@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use SimpleXMLElement;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
@@ -47,6 +48,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        $xml = new SimpleXMLElement('<xml/>');
+
+        $response = $xml->addChild('RequestError');
+        $response->addChild('message', "There is a problem with this request. Please visit the documentation.");
+
+        header('Content-type: text/xml');
+        return ($xml->asXML());
+
+        // return parent::render($request, $e);
     }
 }
