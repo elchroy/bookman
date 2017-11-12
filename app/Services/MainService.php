@@ -10,6 +10,11 @@ class MainService
     const INVALID_TOKEN = 'Invalid Token. Please enter your subscription token.';
 
     /**
+     * The called service is not provided.
+     */
+    const METHOD_NOT_EXISTS = "This action is not available in the service. Please view the documentation.";
+
+    /**
      * Generate hash using env key.
      *
      * @param [type] $data to be hashed
@@ -64,5 +69,17 @@ class MainService
             'status' => $status,
             'body'   => $body,
         ];
+    }
+
+    /**
+     * Handle cases when a method/action is not provided on the service.
+     * 
+     * @param  string $methodName The unavailable method
+     * @param  array  $arguments  The arguments provided to the method
+     * 
+     * @return [type]             Response to the user saying method/action is not provided.
+     */
+    public function __call (string $methodName, array $arguments) {
+        return $this->respond($this->getMessageResponse($methodName . " : " . self::METHOD_NOT_EXISTS), 400);
     }
 }
