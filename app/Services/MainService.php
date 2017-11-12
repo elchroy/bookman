@@ -12,7 +12,7 @@ class MainService
     /**
      * The called service is not provided.
      */
-    const METHOD_NOT_EXISTS = "This action is not available in the service. Please view the documentation.";
+    const METHOD_NOT_EXISTS = 'This action is not available in the service. Please view the documentation.';
 
     /**
      * Generate hash using env key.
@@ -73,13 +73,14 @@ class MainService
 
     /**
      * Handle cases when a method/action is not provided on the service.
-     * 
-     * @param  string $methodName The unavailable method
-     * @param  array  $arguments  The arguments provided to the method
-     * 
-     * @return [type]             Response to the user saying method/action is not provided.
+     *
+     * @param string $methodName The unavailable method
+     * @param array  $arguments  The arguments provided to the method
+     *
+     * @return [type] Response to the user saying method/action is not provided.
      */
-    public function __call (string $methodName, array $arguments) {
-        return $this->respond($this->getMessageResponse($methodName . " : " . self::METHOD_NOT_EXISTS), 400);
+    public function __call(string $methodName, array $arguments)
+    {
+        return $this->respond($this->getMessageResponse($methodName.' : '.self::METHOD_NOT_EXISTS), 400);
     }
 }
