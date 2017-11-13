@@ -2,8 +2,9 @@
 
 /**
  * [quick_sort description]
- * @param  array  $list [description]
- * @return [type]       [description]
+ * @param  array   $list [description]
+ * @param  Closure $cb   [description]
+ * @return [type]        [description]
  */
 function quick_sort(array $list, Closure $cb) : array
 {
