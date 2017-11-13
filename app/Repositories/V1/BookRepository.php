@@ -27,8 +27,9 @@ class BookRepository
                 'title' => $book->title,
             ];
         })->toArray();
+
         return $sort ? quick_sort($books, function ($currentBook, $pivotBook) : bool {
-            return strcmp($currentBook["title"], $pivotBook["title"]) < 0;
+            return strcmp($currentBook['title'], $pivotBook['title']) < 0;
         }) : $books;
     }
 

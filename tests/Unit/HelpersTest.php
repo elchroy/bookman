@@ -10,7 +10,7 @@ class HelpersTest extends TestCase
     {
         $unsortedIntergerArray = [2, -9, 78, 9, -87];
         $sortedArray = [-87, -9, 2, 9, 78];
-        
+
         $result = quick_sort($unsortedIntergerArray, function (int $num, int $pivot) : bool {
             return $num <= $pivot;
         });
