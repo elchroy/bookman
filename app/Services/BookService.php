@@ -92,10 +92,10 @@ class BookService extends MainService
      *
      * @return array Response array with list of books
      */
-    public function GetBooks(string $token)
+    public function GetBooks(string $token, bool $sort = false)
     {
         if ($user = UserRepository::findUserByToken($token)) {
-            $books = BookRepository::findAll($user);
+            $books = BookRepository::findAll($user, $sort);
 
             return count($books) > 0
             ? $this->respond($this->getBooksResponse($books, self::BOOKS_FOUND), 200)
