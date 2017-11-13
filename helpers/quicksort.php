@@ -2,8 +2,9 @@
 
 /**
  * [quick_sort description]
- * @param  array  $list [description]
- * @return [type]       [description]
+ * @param  array   $list The list to be sorted.
+ * @param  Closure $cb   The callback to apply during sorting.
+ * @return [type]        The sorted list in ascending/descending order
  */
 function quick_sort(array $list, Closure $cb) : array
 {
