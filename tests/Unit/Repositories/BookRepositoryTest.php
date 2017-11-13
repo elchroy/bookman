@@ -49,4 +49,13 @@ class BookRepositoryTest extends TestCase
 
         $this->assertEquals('This is the new Lengend of the Seeder', $book->title);
     }
+
+    public function testRepositoryCanSortBooksBasedOnBookTitle()
+    {
+        $lastBook = BookRepository::createBook($this->user, 'AAAAAAAAAAA last Book that starts from the first letter of the alphabet.');
+        $books = BookRepository::findAll($this->user, true);
+        $firstBook = $books[0];
+
+        $this->assertEquals($firstBook['title'], $lastBook['title']);
+    }
 }

@@ -19,14 +19,18 @@ class BookRepository
         return $user->books()->find($id);
     }
 
-    public static function findAll(User $user)
+    public static function findAll(User $user, bool $sort = false)
     {
-        return $user->books->map(function (Book $book) {
+        $books = $user->books->map(function (Book $book) {
             return [
                 'id'    => $book->id,
                 'title' => $book->title,
             ];
         })->toArray();
+
+        return $sort ? quick_sort($books, function ($currentBook, $pivotBook) : bool {
+            return strcmp($currentBook['title'], $pivotBook['title']) < 0;
+        }) : $books;
     }
 
     public static function updateBook(Book $book, string $newTitle)
