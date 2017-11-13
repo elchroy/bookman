@@ -11,10 +11,11 @@
 |
 */
 $router->get('/', function (SimpleXMLElement $xml) use ($router) {
-	$response = $xml->addChild('Welcome');
-	$response->addChild('message', "Welcome to Bookman web service.");
-	header('Content-type: text/xml');
-	return ($xml->asXML());
+    $response = $xml->addChild('Welcome');
+    $response->addChild('message', 'Welcome to Bookman web service.');
+    header('Content-type: text/xml');
+
+    return $xml->asXML();
 });
 
 $router->group(['prefix' => '/api/v1'], function () use ($router) {

@@ -52,7 +52,7 @@ class BookRepositoryTest extends TestCase
 
     public function testRepositoryCanSortBooksBasedOnBookTitle()
     {
-        $lastBook = BookRepository::createBook($this->user, "AAAAAAAAAAA last Book that starts from the first letter of the alphabet.");
+        $lastBook = BookRepository::createBook($this->user, 'AAAAAAAAAAA last Book that starts from the first letter of the alphabet.');
         $books = BookRepository::findAll($this->user, true);
         $firstBook = $books[0];
 

@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services;
 
 use App\Models\V1\User;
+use App\Repositories\V1\BookRepository;
 use App\Services\BookService;
 use TestCase;
-use App\Repositories\V1\BookRepository;
 
 class BookServiceTest extends TestCase
 {
@@ -99,7 +99,7 @@ class BookServiceTest extends TestCase
 
     public function testServiceCanSortBooksBelongingToAUserBasedOnTitle()
     {
-        $lastBook = BookRepository::createBook($this->user, "AAAAAAAAAAA last Book that starts from the first letter of the alphabet.");
+        $lastBook = BookRepository::createBook($this->user, 'AAAAAAAAAAA last Book that starts from the first letter of the alphabet.');
         $response = $this->service->GetBooks($this->user->token, true);
 
         $this->assertEquals(200, $response['status']);
